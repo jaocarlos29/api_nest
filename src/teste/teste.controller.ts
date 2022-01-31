@@ -8,11 +8,13 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { CreateTesteDto } from 'src/testes/dto/create-teste.dto';
+import { UpdateTesteDto } from 'src/testes/dto/update-teste.dto';
 import { TestesService } from 'src/testes/testes.service';
 
 @Controller('teste')
 export class TesteController {
-  constructor(private readonly testesService: TestesService) {}
+  constructor(private readonly testesService: TestesService) { }
   @Get()
   findAll(@Query() paginationQuery) {
     // const { limit, offset } = paginationQuery;
@@ -21,19 +23,19 @@ export class TesteController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.testesService.findOne(id);
+  findOne(@Param('id') id: number) {
+    return this.testesService.findOne('' + id);
     // return `Ação que retorna um id especifico #${id}`;
   }
 
   @Post()
-  create(@Body() body) {
-    return this.testesService.create(body);
+  create(@Body() createTesteDto: CreateTesteDto) {
+    return this.testesService.create(createTesteDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    return this.testesService.update(id, body);
+  update(@Param('id') id: string, @Body() updateTesteDto: UpdateTesteDto) {
+    return this.testesService.update(id, updateTesteDto);
   }
 
   @Delete(':id')
